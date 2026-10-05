@@ -2,7 +2,10 @@
   "name": "weather-monitor-backend",
   "version": "1.0.0",
   "type": "module",
-  "scripts": { "dev": "node server.js" },
+  "scripts": {
+    "dev": "node server.js",
+    "test": "node --test"
+  },
   "dependencies": {
     "express": "^4.19.2",
     "cors": "^2.8.5",

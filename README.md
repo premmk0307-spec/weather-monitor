@@ -1,39 +1,41 @@
 # UK Weather + Air Quality Monitor
 
-Live weather and air-quality readings across five UK cities, in a sortable data grid with
-per-city trend charts. Uses Open-Meteo — completely free, no API key required — so this is the
-quickest of the five projects to get to a polished, deployed MVP.
+A React and Node.js dashboard for London, Manchester, Leicester, Birmingham and Edinburgh, with sortable weather and air-quality readings and a 12-hour temperature forecast.
 
-## Setup
+## Run locally
 
-1. Backend:
-   ```
-   cd backend
-   npm install
-   npm run dev     # :4002
-   ```
-2. Frontend:
-   ```
-   cd frontend
-   npm install
-   npm run dev      # :5173
-   ```
+Use Node.js 24 LTS. Open two command windows in this repository.
 
-## Architecture notes
+Backend:
+```sh
+cd backend
+npm ci
+npm run dev
+```
 
-- The backend caches each city's combined weather+AQI response for 5 minutes with `node-cache`,
-  so refreshing the frontend doesn't re-hit Open-Meteo on every load — worth mentioning as a
-  simple but real rate-limit/cost-control decision.
-- `@tanstack/react-table` powers the sortable grid — click a column header to sort, click a row
-  to load its 12-hour trend chart below. This directly matches the CV's "interactive grids"
-  skill line.
-- Cities are hardcoded server-side (`CITIES` map) for simplicity; swapping to a searchable list
-  is a natural first extension (see below).
+Frontend, in the second window:
+```sh
+cd frontend
+npm ci
+npm run dev
+```
 
-## Ideas to extend
+Open the Local address shown by Vite (normally http://localhost:5173). Keep both windows open. The backend listens on port 4002 and the frontend proxies `/api` requests to it.
 
-- Add a city search (any UK postcode/place via Open-Meteo's geocoding endpoint) instead of a
-  fixed list.
-- Persist historical readings in MongoDB on each fetch, so trend charts can show real history
-  instead of just the next 12 hours' forecast.
-- Add a 2–3 city comparison view (small multiples of the trend chart).
+## Behaviour
+
+- The chart starts at the current hour and includes 12 hourly readings across midnight. Axis labels and tooltip dates use Europe/London time, including daylight-saving changes.
+- Data is cached for five minutes on the backend, with a fresh cache window at each hour boundary. The dashboard refreshes every five minutes. Manual refresh may reuse cached readings.
+- Last updated shows when the oldest displayed city response was fetched, not the weather station observation time.
+- Loading, timeout and error messages explain unavailable data. Failed refreshes preserve earlier readings and offer a retry.
+- Click a city to select its forecast; sort using the column headings.
+
+## Checks
+
+From `backend`, run `npm test`. From `frontend`, run `npm run build`. Run `npm audit` in each folder to check dependency advisories. Commit both package-lock.json files to keep installations reproducible.
+
+## Data and hosting
+
+Weather is supplied by [Open-Meteo](https://open-meteo.com/). Air quality is supplied by [CAMS through Open-Meteo](https://open-meteo.com/en/docs/air-quality-api). No API key is required by this code.
+
+Uploading the source to GitHub does not deploy the app. A live deployment needs a Node.js backend and frontend hosting configured to forward `/api` requests to that backend; the development proxy is not part of the production build.

@@ -2,18 +2,23 @@
   "name": "weather-monitor-frontend",
   "version": "1.0.0",
   "type": "module",
-  "scripts": { "dev": "vite", "build": "tsc && vite build", "preview": "vite preview" },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
   "dependencies": {
+    "@tanstack/react-table": "^8.19.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "@tanstack/react-table": "^8.19.3",
-    "recharts": "^2.12.7"
+    "react-is": "^18.3.1",
+    "recharts": "^3.10.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
+    "@vitejs/plugin-react": "^6.1.2",
     "typescript": "^5.5.3",
-    "vite": "^5.3.4"
+    "vite": "^8.3.2"
   }
 }

@@ -7,3 +7,12 @@ tr:hover { background: #161b22; cursor: pointer; }
 .aqi-good { color: #3fb950; }
 .aqi-moderate { color: #d29922; }
 .aqi-poor { color: #f85149; }
+.status-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+button { background: #21262d; border: 1px solid #8b949e; border-radius: 6px; color: inherit; padding: 8px 14px; cursor: pointer; }
+button:disabled { opacity: .6; cursor: wait; }
+button:focus-visible, a:focus-visible { outline: 2px solid #58a6ff; outline-offset: 3px; }
+.error { padding: 12px; border: 1px solid #f85149; border-radius: 6px; }
+.table-scroll { overflow-x: auto; }
+footer { margin-top: 32px; color: #aab4bf; font-size: 14px; }
+a { color: #58a6ff; }
+@media (max-width: 600px) { .container { padding: 16px; } h1 { font-size: 26px; } .status-bar { align-items: flex-start; } }
