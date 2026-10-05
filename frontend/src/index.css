@@ -1,0 +1,9 @@
+body { font-family: system-ui, sans-serif; background: #0d1117; color: #e6edf3; margin: 0; }
+.container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #21262d; }
+th { cursor: pointer; opacity: 0.8; font-size: 13px; text-transform: uppercase; }
+tr:hover { background: #161b22; cursor: pointer; }
+.aqi-good { color: #3fb950; }
+.aqi-moderate { color: #d29922; }
+.aqi-poor { color: #f85149; }
