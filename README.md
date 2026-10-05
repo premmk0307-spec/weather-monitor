@@ -39,3 +39,17 @@ From `backend`, run `npm test`. From `frontend`, run `npm run build`. Run `npm a
 Weather is supplied by [Open-Meteo](https://open-meteo.com/). Air quality is supplied by [CAMS through Open-Meteo](https://open-meteo.com/en/docs/air-quality-api). No API key is required by this code.
 
 Uploading the source to GitHub does not deploy the app. A live deployment needs a Node.js backend and frontend hosting configured to forward `/api` requests to that backend; the development proxy is not part of the production build.
+
+## Deploy on Render
+
+Create a Web Service connected to this repository with these settings:
+
+- Language: Node
+- Branch: main
+- Root directory: leave blank
+- Build command: `npm ci --prefix backend && npm ci --prefix frontend --include=dev && npm run build --prefix frontend`
+- Start command: `node backend/server.js`
+- Instance type: Free (for a portfolio demo)
+- Health check path: `/health`
+
+The `.node-version` file selects Node.js 24.18.0. Render provides the PORT automatically. The backend serves the built frontend from `frontend/dist`, so the dashboard and `/api` share the same address. No separate static site or API URL setting is required. Free hosting can pause when idle, making the next visit slower.

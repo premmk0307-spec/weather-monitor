@@ -3,6 +3,7 @@ import cors from "cors";
 import fetch from "node-fetch";
 import NodeCache from "node-cache";
 import { nextHours } from "./forecast.js";
+import { fileURLToPath } from "node:url";
 
 const app = express();
 app.use(cors());
@@ -71,5 +72,11 @@ app.get("/api/cities/:key", async (req, res) => {
   }
 });
 
+app.get("/health", (req, res) => res.json({ status: "ok" }));
+
+// Resolve from this file so hosting works regardless of the start directory.
+const dashboardDirectory = fileURLToPath(new URL("../frontend/dist/", import.meta.url));
+app.use(express.static(dashboardDirectory));
+
 const PORT = process.env.PORT || 4002;
-app.listen(PORT, () => console.log(`Weather backend on :${PORT}`));
+app.listen(PORT, "0.0.0.0", () => console.log(`Weather backend on :${PORT}`));
